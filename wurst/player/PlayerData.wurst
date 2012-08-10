@@ -1,0 +1,68 @@
+package PlayerData
+    import MultiboardClass
+    import PlayerModule
+    import GameConstants
+    import LinkedListModule
+    
+    
+    public int playercount = 0
+
+
+    public class PlayerData //just the player's (constant) stuff
+    	use LinkedListModule
+    	
+    	int id
+        int gameId
+        player p
+        string name
+        string mbname //Basically the output name
+        string rank = "Newbie"
+        string icon = "ReplaceableTextures\\CommandButtons\\BTNSelectHeroOn.blp"
+        boolean left = false
+        
+        unit escaper
+        int deaths = 0
+        int XP = 40
+        
+        boolean gridClickActivated = false
+    
+        construct (player p)
+            this.p = p
+            id = GetPlayerId(p)
+            gameId = PlayerData.size - 1
+            name = GetPlayerName(p)
+            mbname = name
+            if mbname == "Frotty" or mbname == "FrottyZ"
+                rank = "|cffADD642Creator"
+
+            for int i = 0 to cplayerCount
+                if mbname == names[i]
+                    mbname = tags[i] + "|r" + colorcode[ id ] + mbname
+
+            mbname = colorcode[ id ] + mbname
+            
+            
+		function updateRank ()
+            int i = 0
+            while XP >= expBounds[i]
+                i++
+            rank = ranks[i-1]
+            if XP > 500
+                AddSpecialEffectTarget( "war3mapImported\\Life High.mdx", escaper, "chest" )
+            else if XP > 300
+                AddSpecialEffectTarget( "war3mapImported\\Life Low_Portrait.mdx", escaper, "chest" )
+            else if XP > 99
+                AddSpecialEffectTarget( "war3mapImported\\Life Low.mdx", escaper, "chest" )
+                DisplayTextToForce( bj_FORCE_ALL_PLAYERS, name + " has loaded his Player Rank" )
+                
+		function setMBRow(int r)
+            playerboard.updateItem(r,0,mbname,icon)
+            playerboard.updateValue(r,1,deaths.toString())
+            playerboard.updateValue(r,2,rank)  
+
+	public function isPlayerEscaper(player p) returns boolean //not sure if its proper
+		if GetPlayerId(p) < 7
+			return true
+		return false
+        
+endpackage 
