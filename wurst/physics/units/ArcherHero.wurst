@@ -1,0 +1,10 @@
+package ArcherHero
+	import Hero
+	
+	public class ArcherHero extends Hero
+		
+	
+		construct( real x, real y, real z, unit u )
+			super( x, y, z, u )
+
+endpackage

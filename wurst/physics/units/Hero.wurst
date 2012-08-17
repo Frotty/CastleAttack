@@ -1,0 +1,13 @@
+package Hero
+	import Entity
+	import Vectors
+	
+	public class Hero extends UnitEntity
+		vec3 lastPos
+		
+		
+	
+		construct( real x, real y, real z, unit u )
+			super( x, y, z, u )
+
+endpackage

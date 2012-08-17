@@ -2,6 +2,7 @@ package Entity
 	import public Vectors
 	import LinkedListModule
 	import Debug
+	import public EntityManagement
 	
 	
 	public class Entity
@@ -9,12 +10,13 @@ package Entity
 		
 		vec3 position
 		
-		real collisionRadius
+		boolean active = true
 		
 		construct( real x, real y, real z )
 			position = vec3(x,y,z)
 			entityCount++
 			currentEntityCount++
+			print("current Entities: " + currentEntityCount.toString() )
 		
 		function update()
 			skip
@@ -25,6 +27,8 @@ package Entity
 		
 	public class DynamicEntity extends Entity
 		vec3 velocity
+		
+		real factor = 1.
 		
 		construct( real x, real y, real z )
 			super(x,y,z)
@@ -39,7 +43,10 @@ package Entity
 			
 		override function update()
 			skip
-		
+			
+		ondestroy
+			skip
+			
 	public class UnitEntity extends DynamicEntity
 		unit actor
 		player owner
@@ -55,6 +62,9 @@ package Entity
 			
 			
 		override function update()
+			skip
+			
+		ondestroy
 			skip
 			
 endpackage

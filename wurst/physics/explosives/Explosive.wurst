@@ -2,7 +2,7 @@ package Explosive
 	import Entity
 	import Fx 
 	
-	public class StaticExplosive extends Entity
+	module Explosive
 		Fx model
 	
 		real radius
@@ -11,6 +11,9 @@ package Explosive
 		boolean activated = false
 		boolean timed = false
 		real timeout = 0.
+	
+	public class StaticExplosive extends Entity
+		use Explosive
 		
 		construct( real x, real y, real radius, real power, boolean activated, boolean timed )
 			super( x, y, 0. )
@@ -31,14 +34,7 @@ package Explosive
 			skip
 			
 	public class DynamicExplosive extends DynamicEntity
-		Fx model
-	
-		real radius
-		real power
-		
-		boolean activated = false
-		boolean timed = false
-		real timeout = 0.
+		use Explosive
 		
 		construct( real x, real y, real radius, real power, boolean activated, boolean timed )
 			super( x, y, 0. )

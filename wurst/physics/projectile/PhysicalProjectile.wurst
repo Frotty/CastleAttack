@@ -1,0 +1,48 @@
+package PhysicalProjectile
+	import public Entity
+	import public Fx
+	import public Terrain
+	import public Physics
+	
+
+	
+	public class PhysicalProjectile extends DynamicEntity
+		Fx fx
+		
+		boolean gravityAffected = true
+		
+		boolean bounce = false
+		real restitution = 1.
+		real friction = 1.
+		
+		
+		construct( real x, real y, real z, real angle, string sfxpath )
+			super(x, y, z)	
+			
+			fx = new Fx(x, y, angle, sfxpath)
+			fx.setZ(z)
+
+			velocity = vec3( -14, 0, 20 )
+			
+		override function update()
+			if position.x > 1000.
+				velocity = vec3( -velocity.x, velocity.y, velocity.z )
+			else if position.x < -1000.
+				velocity = vec3( -velocity.x, velocity.y, velocity.z )
+				
+			if position.z > 1.
+				velocity += gravity
+			else if velocity.z < -0.5
+				velocity = vec3( velocity.x, velocity.y, -(velocity.z * restitution) )
+			
+			position += velocity	
+			fx.setX(position.x)
+			fx.setY(position.y)
+			fx.setZ(position.z - getTerrainZ(position.x, position.y) )
+			//print(position.toString())
+			
+		ondestroy
+			destroy fx
+			print("fx out")
+		
+endpackage

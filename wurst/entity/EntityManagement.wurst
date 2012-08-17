@@ -1,12 +1,25 @@
 package EntityManagement
 	import Entity
-
+	import TList
+	
+	constant 	real DECAL_CLEANUP_PERIOD = 2.5
+	
+	real maxDeco = 25.
+	
+	public TList<Entity> decos = new TList<Entity>()
 	
 	function updateEntities()
 		Entity e = Entity.first
 		while e != null
-			e.update()
+			if e.active
+				e.update()
 			e = e.next
+			
+	public function addDeco(Entity e)
+		if decos.getSize() > maxDeco
+			destroy decos.get(0)
+			decos.removeAt(0)
+		decos.add(e)			
 			
 		
 	public function init_EntityManagement()

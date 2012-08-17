@@ -3,45 +3,51 @@ package Projectile
 	import Fx
 	import Terrain
 	
+	public enum Movement
+		FREE
+		SPIN
+		HOMING
+	
 	public class Projectile extends DynamicEntity
 		Fx fx
 		
-		real angle
-		
-		
-		int movementType = MOVEMENT_FREE
+		Movement movement = Movement.FREE
 		
 		vec3 spinCenter
 		real spinDistance = 0.
+		real spinSpeedGround = 0.
+		real groundAngle = 0.
+		real spinSpeedAir = 0.
 		real airAngle = 0.
 		
 		construct( real x, real y, real z, real angle, string sfxpath )
 			super(x, y, z)	
-			this.angle = angle
 			
 			fx = new Fx(x, y, angle, sfxpath)
 			fx.setZ(z)
 			
 		override function update()
-			if movementType == MOVEMENT_FREE
-				position = position + velocity
-			else if movementType == MOVEMENT_SPINNING
-				let a = 90. * DEGTORAD
-				var x = spinCenter.x + spinDistance * Cos(a) * Cos(airAngle)
-				var y = spinCenter.y + spinDistance * Sin(a) * Cos(airAngle)
-				var z = spinCenter.z + spinDistance * Sin(airAngle) 
-				position = vec3(x,y,z)
-				airAngle += 1214.
+			switch movement
+				case Movement.FREE
+					position += velocity
+				case Movement.SPIN
+					position = polarProjection3d(spinCenter, spinDistance, groundAngle, airAngle)
+					groundAngle += spinSpeedGround
+					airAngle += spinSpeedAir
+				case Movement.HOMING
+					skip
 				
 			fx.setX(position.x)
 			fx.setY(position.y)
 			fx.setZ(position.z - getTerrainZ(position.x, position.y) )
 			
-		function setSpinning( vec3 spinTarget, real dist )
-			movementType = MOVEMENT_SPINNING
+		function setSpinning( vec3 spinTarget, real dist, real groundSpinSpeed, real angleGround, real airSpinSpeed, real angleAir )
+			movement = Movement.SPIN
 			spinDistance = dist
 			spinCenter = spinTarget
+			spinSpeedGround = groundSpinSpeed
+			spinSpeedAir = airSpinSpeed
+			groundAngle = angleGround
+			airAngle = angleAir
 		
-	constant int MOVEMENT_FREE = 0
-	constant int MOVEMENT_SPINNING = 1
 endpackage
