@@ -1,13 +1,9 @@
 package Hero
-	import Entity
-	import Vectors
+import PhysicalUnitEntity
 	
-	public class Hero extends UnitEntity
-		vec3 lastPos
-		
-		
+public class Hero extends PhysicalUnitEntity
+	vec3 lastPos
 	
-		construct( real x, real y, real z, unit u )
-			super( x, y, z, u )
+	construct( vec3 pos, unit u )
+		super( pos, u )
 
-endpackage

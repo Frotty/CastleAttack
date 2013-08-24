@@ -1,8 +1,0 @@
-package CustomBars
-	
-	public class CustomBar
-		string barText
-		texttag tt
-
-
-endpackage

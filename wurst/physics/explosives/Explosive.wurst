@@ -2,7 +2,7 @@ package Explosive
 	import Entity
 	import Fx 
 	
-	module Explosive
+	public class Explosive extends Entity
 		Fx model
 	
 		real radius
@@ -11,12 +11,9 @@ package Explosive
 		boolean activated = false
 		boolean timed = false
 		real timeout = 0.
-	
-	public class StaticExplosive extends Entity
-		use Explosive
 		
-		construct( real x, real y, real radius, real power, boolean activated, boolean timed )
-			super( x, y, 0. )
+		construct( vec3 pos, real radius, player owner, real power, boolean activated, boolean timed )
+			super( pos, radius, owner )
 			
 			this.radius = radius
 			this.power = power
@@ -33,26 +30,5 @@ package Explosive
 		function explode()
 			skip
 			
-	public class DynamicExplosive extends DynamicEntity
-		use Explosive
-		
-		construct( real x, real y, real radius, real power, boolean activated, boolean timed )
-			super( x, y, 0. )
-			
-			this.radius = radius
-			this.power = power
-			
-			this.activated = activated
-			this.timed = timed
-
-		override function update()
-			
-			if timed and activated
-				timeout -= ANIMATION_PERIOD
-				if timeout <= 0.
-					explode()
-		
-		function explode()
-			skip
 			
 endpackage 

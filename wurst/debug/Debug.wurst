@@ -1,9 +1,33 @@
 package Debug
+import MultiboardClass
+import PlayerData
+
+public int entityCount 			= 0
+public int currentEntityCount 	= 0
+public int unitEntityCount 		= 0
 	
-	public int entityCount 			= 0
-	public int currentEntityCount 	= 0
-	public int dynamicEntityCount 	= 0
-	public int unitEntityCount 		= 0
+Board debugBoard
+
+public function startDebug()
+	debugBoard = new Board(3, 2)
+	debugBoard.board.getItem(0,0).setWidth(0.2)
+	debugBoard.board.getItem(1,0).setWidth(0.2)
+	debugBoard.board.getItem(2,0).setWidth(0.2)
+	debugBoard.board.getItem(0,1).setWidth(0.02)
+	debugBoard.board.getItem(1,1).setWidth(0.02)
+	debugBoard.board.getItem(2,1).setWidth(0.02)
+	debugBoard.setItemContent(0, 0, "Entity Count: ", null)
+	debugBoard.setItemContent(0, 1, entityCount.toString(), null)
+	debugBoard.setItemContent(1, 0, "Current Entity Count: ", null)
+	debugBoard.setItemContent(1, 1, currentEntityCount.toString(), null)
+	debugBoard.setItemContent(2, 0, "Current UEntity Count: ", null)
+	debugBoard.setItemContent(2, 1, unitEntityCount.toString(), null)
+	playerboard.hide()
+	debugBoard.show()
+	getTimer().start(1., function updateBoard)
+	print("done")
 	
-	
-endpackage
+public function updateBoard()
+	debugBoard.updateItemValue(0, 1, entityCount.toString())
+	debugBoard.updateItemValue(1, 1, currentEntityCount.toString())
+	debugBoard.updateItemValue(2, 1, unitEntityCount.toString())

@@ -1,10 +1,10 @@
 package ArcherHero
-	import Hero
-	
-	public class ArcherHero extends Hero
-		
-	
-		construct( real x, real y, real z, unit u )
-			super( x, y, z, u )
+import Hero
 
-endpackage
+constant int HERO_ID = 'H001'
+
+public class ArcherHero extends Hero
+
+	construct( vec3 pos, player owner )
+		super( pos, createUnit(owner, HERO_ID, pos, angle(0)) )
+
