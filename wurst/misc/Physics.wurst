@@ -1,0 +1,99 @@
+package Physics
+import Terrain
+import Entity
+
+public function getPathingNormal(vec2 pos) returns vec2
+	int numberOfTests = 6
+	real radius = 64
+	vec2 addedVecs = vec2(0, 0)
+	for int i = 1 to numberOfTests
+		vec2 direction = vec2(0,0).polarOffset(angle(i*2.*PI/numberOfTests), radius)
+		vec2 testPoint = pos + direction
+		if isTerrainWalkable(testPoint.x, testPoint.y)
+			addedVecs += direction
+	return addedVecs.setLength(1.) * (-1.)
+
+public function getBounceVec(vec2 vel2, vec2 nor2) returns vec2
+		vec3 vel3 = vel2.toVec3()
+		vec3 nor3 = nor2.toVec3()
+		vec3 pv3 = vel3.project(nor3)
+		vec2 pv2 = pv3.toVec2()
+		pv2 *= (-1.4)
+		return pv2
+		
+// calculates a collision with a static entity and changes the velocity accordingly	
+function Entity.collideWithStatic(Entity staticEntity)
+	let delta = staticEntity.pos.toVec2() - this.pos.toVec2()
+	let deltaLen = delta.length()
+
+	vec2 deltaNorm
+	if deltaLen == 0
+		deltaNorm = vec2(0,1)
+	else
+		deltaNorm = delta * (1/deltaLen)
+
+	let speedTowardsStatic = this.vel.toVec2().dot(deltaNorm)
+	if speedTowardsStatic > 0
+		this.vel -= (deltaNorm * speedTowardsStatic * 2.0).toVec3()
+	else if speedTowardsStatic == 0
+		// walking
+		this.vel -= (deltaNorm * 300.0).toVec3()
+
+	// move entities so that the intersection is empty
+	real intersectionWidth =  deltaLen - (this.radius + staticEntity.radius)
+	this.setPos(this.pos -  (deltaNorm * (intersectionWidth + 25)).toVec3())
+
+
+
+//// calculates a collision with an other dynamic entity and updates the velocity 
+//// of _both_ entities accordingly				
+//// bounceFactor should be greater than 0 and less or equal to 1
+//function Entity.collideWithDynamicEntity(Entity other, real bounceFactor)
+//	if ignoreNextCollide
+//		ignoreNextCollide = false
+//		return
+//	other.ignoreNextCollide = true
+//
+//	let pos1 = position.toVec2()
+//	let pos2 = other.position.toVec2()
+//	let vel1 = velocity.toVec2()
+//	let vel2 = other.velocity.toVec2()
+//
+//	let delta = (pos2 - pos1)
+//	let deltaLen = delta.length()
+//	vec2 deltaNorm
+//	if deltaLen == 0
+//		deltaNorm = vec2(0,1)
+//	else
+//		deltaNorm = delta * (1/deltaLen)			
+//	real speed1central = vel1.dot(deltaNorm)
+//	real speed2central = vel2.dot(deltaNorm)
+//
+//
+//	// move entities so that the intersection is empty
+//	real intersectionWidth = (radius + other.radius) - deltaLen 
+//	setNewPos(position -  (deltaNorm * (intersectionWidth/2 + 5)).toVec3())
+//	other.setNewPos(other.position +  (deltaNorm * (intersectionWidth/2 + 5)).toVec3())
+//	print("intersectionWidth = " + intersectionWidth.toString())
+//	print("before = " + deltaLen.toString())
+//	print("after = " + (other.position - position).length().toString())
+//
+//
+//
+//	let futurePos1 = pos1 + vel1*0.01
+//	let futurePos2 = pos2 + vel2*0.01
+//	let futureDelta = (futurePos2 - futurePos1)
+//
+//	if futureDelta.length() < deltaLen  
+//		// split the velocities in a part linear to the delta vector (central) and an orthogonal part 
+//		let vel1central = deltaNorm*speed1central
+//		let vel1orthogonal = vel1 - vel1central
+//
+//		let vel2central = deltaNorm*speed2central
+//		let vel2orthogonal = vel2 - vel2central
+//
+//		// the central velocities are exchanged, the orthogonal velocities remain unchanged
+//		// this is similar to the collision with a wall where the velocity which is parallel to 
+//		// the wall is unchanged, whereas the other part of the velocity is inversed
+//		velocity += (vel2central - vel1central).toVec3() * bounceFactor
+//		other.velocity += (vel1central - vel2central).toVec3() * bounceFactor

@@ -1,0 +1,8 @@
+package Creep
+import Entity
+
+public class Creep extends UnitEntity
+
+	construct(vec3 pos, int id, player owner, vec2 target)
+		super(pos, createUnit(owner, id, pos, pos.angleTo2d(target)))
+		actor.issuePointOrder("attack", target)

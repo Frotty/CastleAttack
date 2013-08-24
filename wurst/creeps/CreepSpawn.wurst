@@ -1,0 +1,38 @@
+package CreepSpawn
+import LinkedList
+
+LinkedList<Spawner> spawners = new LinkedList<Spawner>()
+
+constant int FOOTMAN_ID = 'h000'
+
+public class Spawner
+	vec3 pos
+	vec2 target
+	timer spawnTimer
+	real timeout = 0
+	
+	construct(vec3 pos)
+		this.pos = pos
+		spawnTimer = getTimer()
+		spawners.add(this)	
+		
+	static function spawnUnits()
+		let data = GetExpiredTimer().getData() castTo Spawner
+		
+		
+	function start()
+		spawnTimer.start(timeout, function Spawner.spawnUnits).setData(this castTo int)
+		
+	ondestroy
+		spawnTimer.release()
+		
+public function startAllSpawners()
+
+		
+public function cleanupSpawners()
+	debugPrint("cleaning up spawners", 3)
+	for s in spawners
+		destroy s
+		
+	destroy spawners
+	spawners = new LinkedList<Spawner>()

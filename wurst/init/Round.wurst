@@ -1,0 +1,48 @@
+package Round
+import Entity
+import Hero
+import CreepSpawn
+
+
+int roundCount = 0
+boolean gameRunning = false
+boolean warmupRunning = false
+
+trigger warmupRectTrigger 
+
+public function startNewRound()
+	if gameRunning
+		printError("Trying to start new Round while Round in progress")
+		return
+	if roundCount > 0
+		cleanupArena()
+	startWarmup()
+
+		
+	roundCount++
+
+function startWarmup()
+	warmupRunning = true
+	warmupRectTrigger = CreateTrigger()
+	warmupRectTrigger.addAction(function enterWarmupBlock).registerRectEnterEventSource(gg_rct_warmupblock)
+	print("warmup started")
+	getTimer().start(30, function finishWarmup)
+	
+function finishWarmup()
+	warmupRectTrigger.destr()
+	startAllSpawners()
+	print("warmup finished")
+
+function cleanupArena()
+	
+
+function enterWarmupBlock()
+	let u = GetTriggerUnit()
+	let data = u.getUserData() castTo Entity
+	if data instanceof Hero
+		DisplayTextToPlayer(data.owner,0,0,"|cff639C31You cannot leave your base during warmup")
+		addEffect("Abilities\\Weapons\\Bolt\\BoltImpact.mdl", data.pos).destr()
+		if data.pos.x > gg_rct_warmupblock.getCenterX()
+			data.addVel(vec3(20, 0, 1))
+		else
+			data.addVel(vec3(-20, 0, 1))

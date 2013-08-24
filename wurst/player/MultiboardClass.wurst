@@ -1,0 +1,87 @@
+package MultiboardClass
+import Multiboard
+
+int counter = 0
+
+public class Board
+	multiboard board
+	Table mbdata
+	int rows
+	int columns
+	
+	construct(int rowCount, int columnCount )
+		board = CreateMultiboard()
+		rows = rowCount
+		columns = columnCount
+		board.setColumnCount(columns)
+		board.setRowCount(rows)
+		mbdata = new Table()
+		
+		for i = 0 to rows-1 //we need to register them so the USER wont have to.
+			for j = 0 to columns-1
+				setItemContent(i,j,null,null)
+				board.getItem(i,j).setStyle(false,false) //Hide everything, updateItem() func will show stuff automatically
+				
+	/** If you pass null or "" as value or icon, the element will be hidden */
+	function setItemContent(int row, int column, string value, string iconPath)
+		var dataitm = (mbdata.loadInt(rows * row + column) castTo MBItem)
+		if dataitm != null
+			destroy dataitm
+		dataitm = new MBItem(value, iconPath)
+		mbdata.saveInt(rows * row + column, dataitm castTo int)
+		let itm = board.getItem(row,column)
+		let showValue = value != null and value.length() > 0
+		let showIcon = iconPath != null and iconPath.length() > 1
+		if showValue
+			itm.setValue(value)
+		if showIcon
+			itm.setIcon(iconPath)
+		itm.setStyle(showValue, showIcon)
+
+		
+	function removeRow(int row)
+		
+		
+	function updateItem(int row, int column, string value, string iconPath)
+		var dataitm = (mbdata.loadInt(rows * row + column) castTo MBItem)
+		let showValue = value != null and value.length() > 0
+		let showIcon = iconPath != null and iconPath.length() > 1
+		let itm = board.getItem(row,column)
+		if showValue
+			itm.setValue(value)
+			dataitm.value = value
+		if showIcon
+			itm.setIcon(iconPath)
+			dataitm.iconPath = iconPath
+		itm.setStyle(showValue, showIcon)
+
+		
+	function updateItemValue(int row, int column, string value)
+		var dataitm = (mbdata.loadInt(rows * row + column) castTo MBItem)
+		dataitm.value = value
+		board.getItem(row,column).setValue(value)
+
+	function updateItemIcon(int row, int column, string iconPath)
+		var dataitm = (mbdata.loadInt(rows * row + column) castTo MBItem)
+		dataitm.iconPath = iconPath
+		board.getItem(row,column).setIcon(iconPath)
+		
+		
+	function show()
+		board.display(true)
+		
+	function hide()
+		board.display(false)
+
+	ondestroy
+		DestroyMultiboard(board)
+		destroy mbdata
+		
+class MBItem
+	string value
+	string iconPath
+	
+	construct(string value, string iconPath)
+		this.value = value
+		this.iconPath = iconPath
+		

@@ -1,0 +1,36 @@
+package PhysicalUnitEntity
+import Entity
+import Terrain
+import GameConstants
+public class PhysicalUnitEntity extends UnitEntity
+	boolean flying = true
+	real terrainZ = 0.
+	construct( vec3 pos, unit u)
+		super(pos, u)
+		
+	override function update()
+		super.update()
+		terrainZ = getTerrainZ(pos.x, pos.y)
+		if flying
+			if pos.z > terrainZ + 1.
+				vel += gravity
+			else
+				pos.z = terrainZ
+				vel.z = 0
+				flying = false
+				actor.setPropWindow(180.)
+		else 
+			if pos.z > terrainZ + 1.
+				if vel.lengthSquared() > 3
+					flying = true
+					actor.setPropWindow(0.)
+				else
+					pos.z = terrainZ
+			else
+				pos.z = terrainZ + .1
+			vel *= .93
+				
+		pos += vel		
+		setXYZ(pos, terrainZ)
+		
+				

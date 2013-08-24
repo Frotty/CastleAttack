@@ -1,0 +1,16 @@
+package Init
+import EntityManagement
+import Test
+import Round
+import Debug
+
+vec2 startpos = vec2(-6144,3584)
+
+function initGame()
+	startEntityLoop()
+	startTest()
+	startNewRound()
+	startDebug()
+	
+init
+	getTimer().start(0.1, function initGame)

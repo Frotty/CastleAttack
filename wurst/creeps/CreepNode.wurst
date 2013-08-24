@@ -1,0 +1,24 @@
+package CreepNode
+import Entity
+import Creep
+
+public class CreepNode
+	vec2 target
+	unit inrangeDummy
+	player creepOwner
+	trigger t = CreateTrigger()
+	
+	static function orderAttack()
+		let data = GetTriggerUnit().getUserData() castTo Entity
+		let sdata = GetTriggeringTrigger().getSource().getUserData() castTo CreepNode
+		if data instanceof Creep
+			let cdata = data castTo Creep
+			cdata.actor.issuePointOrder("attack", sdata.target)
+	
+	construct(vec2 pos, vec2 target, player creepOwner, real radius)
+		this.target = target
+		this.creepOwner = creepOwner
+		inrangeDummy = createUnit(DUMMY_PLAYER, 'e000', pos, angle(0))
+		t.registerUnitInRangeSource(inrangeDummy, radius)
+		t.addAction(function CreepNode.orderAttack)
+		
