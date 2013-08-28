@@ -4,7 +4,6 @@ import ArcherHero
 ArcherHero h 
 
 public function startTest()
-	h = new ArcherHero(vec3(-6144,3584,128), Player(0))	
 	var t = CreateTrigger()
 	t.registerPlayerChatEvent(Player(0),"force", true)
 	.addAction(function forced)
@@ -12,6 +11,6 @@ public function startTest()
 	
 function forced()
 	print("2duh!")
-	h.addVel(vec3(10, 0, 70))
+	new ArcherHero(vec3(-6144,3584,256), Player(0))	
 
 	

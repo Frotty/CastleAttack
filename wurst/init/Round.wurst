@@ -8,6 +8,8 @@ int roundCount = 0
 boolean gameRunning = false
 boolean warmupRunning = false
 
+constant real WARUMP_TIME = 5
+
 trigger warmupRectTrigger 
 
 public function startNewRound()
@@ -26,7 +28,7 @@ function startWarmup()
 	warmupRectTrigger = CreateTrigger()
 	warmupRectTrigger.addAction(function enterWarmupBlock).registerRectEnterEventSource(gg_rct_warmupblock)
 	print("warmup started")
-	getTimer().start(30, function finishWarmup)
+	getTimer().start(WARUMP_TIME, function finishWarmup)
 	
 function finishWarmup()
 	warmupRectTrigger.destr()

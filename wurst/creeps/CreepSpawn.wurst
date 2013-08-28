@@ -1,5 +1,8 @@
 package CreepSpawn
 import LinkedList
+import Terrain
+import GameConstants
+import Creep
 
 LinkedList<Spawner> spawners = new LinkedList<Spawner>()
 
@@ -7,32 +10,88 @@ constant int FOOTMAN_ID = 'h000'
 
 public class Spawner
 	vec3 pos
-	vec2 target
+	vec2 target1
+	vec2 target2
+	player owner
 	timer spawnTimer
-	real timeout = 0
+	int spawnCount = 0
+	int footmenCount = 3
 	
-	construct(vec3 pos)
-		this.pos = pos
+	real timeout = 5
+	
+	construct(unit spawnDummy, player owner)
+		this.pos = spawnDummy.getPos3fake()
+		this.owner = owner
+		pos.z = getTerrainZ(pos.x, pos.y) + 5.
 		spawnTimer = getTimer()
 		spawners.add(this)	
 		
 	static function spawnUnits()
+		print("spawn units")
 		let data = GetExpiredTimer().getData() castTo Spawner
+		getTimer().start(0.5, function spawnFootmen).setData(data castTo int)
+		if data.spawnCount > 2
+			getTimer().start(5., function spawnCatapults)
+			data.spawnCount = 0
+		data.spawnCount++
+		
+	static function spawnFootmen()
+		print("spawn foot1")
+		let tim = GetExpiredTimer()
+		let data = tim.getData() castTo Spawner
+		print("spawn foot2")
+		if GetRandomInt(0,1) == 0
+			new Creep(data.pos, FOOTMAN_ID, data.owner, data.target1)
+		else
+			new Creep(data.pos, FOOTMAN_ID, data.owner, data.target2)
+		data.footmenCount--
+		if data.footmenCount >= 0
+			tim.start(.75, function spawnFootmen)
+		else
+			tim.release()
+			data.footmenCount = 3
+		
+	static function spawnCatapults()
+		
 		
 		
 	function start()
-		spawnTimer.start(timeout, function Spawner.spawnUnits).setData(this castTo int)
+		spawnTimer.start(1., function Spawner.spawnUnits).setData(this castTo int)
+		print("started")
 		
-	ondestroy
+	function stop()
 		spawnTimer.release()
+		spawnTimer = getTimer()
+		
 		
 public function startAllSpawners()
-
+	for s in spawners
+		s.start()
+		print("start")
 		
-public function cleanupSpawners()
+public function stopSpawners()
 	debugPrint("cleaning up spawners", 3)
 	for s in spawners
-		destroy s
+		s.stop()
 		
-	destroy spawners
-	spawners = new LinkedList<Spawner>()
+	
+public function initCreepSpawners(int round)
+	player owner
+	if round % 2 == 1
+		owner = TEAM_ONE_CPU
+	else 
+		owner = TEAM_TWO_CPU
+	// Top Attacker Spawner
+	var spwn = new Spawner(gg_unit_e003_0021, owner)
+	spwn.target1 = gg_unit_e001_0001.getPos()
+	spwn.target2 = gg_unit_e001_0004.getPos()
+	// Middle Attacker Spawner
+	spwn = new Spawner(gg_unit_e003_0023, owner)
+	spwn.target1 = gg_unit_e001_0004.getPos()
+	spwn.target2 = gg_unit_e001_0016.getPos()
+	// Bottom Attacker Spawner
+	spwn = new Spawner(gg_unit_e003_0022, owner)
+	spwn.target1 = gg_unit_e001_0016.getPos()
+	spwn.target2 = gg_unit_e001_0017.getPos()
+
+	

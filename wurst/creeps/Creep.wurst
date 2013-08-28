@@ -1,8 +1,11 @@
 package Creep
-import Entity
+import PhysicalUnitEntity
 
-public class Creep extends UnitEntity
+public class Creep extends PhysicalUnitEntity
 
 	construct(vec3 pos, int id, player owner, vec2 target)
 		super(pos, createUnit(owner, id, pos, pos.angleTo2d(target)))
 		actor.issuePointOrder("attack", target)
+
+		
+	

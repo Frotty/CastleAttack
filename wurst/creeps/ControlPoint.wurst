@@ -1,0 +1,26 @@
+package ControlPoint
+import Entity
+import TempGroups
+
+constant real checkperiod = 1.
+public ControlPoint controlPoint
+
+public class ControlPoint extends UnitEntity
+	real time = 0.
+	
+	construct(unit u, real radius)
+		super(u.getPos3fake(), u)
+		
+	override function update()
+		time += ANIMATION_PERIOD
+		if time > checkperiod
+			time = 0
+			GroupEnumUnitsInRange(ENUM_GROUP, pos.x, pos.y, 128, null)
+			int unitsInRange = 0
+			for u in ENUM_GROUP
+				if u.getOwner().isEnemyOf(owner)
+					unitsInRange++
+			
+		
+public function initControlpoint()
+	controlPoint = new ControlPoint(gg_unit_cpnt_0000, 128)	

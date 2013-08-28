@@ -3,14 +3,24 @@ import EntityManagement
 import Test
 import Round
 import Debug
+import ControlPoint
+import CreepNode
+import CreepSpawn
+
 
 vec2 startpos = vec2(-6144,3584)
 
 function initGame()
+	// Inits
+	initControlpoint()
+	initCreepNodes()
+	initCreepSpawners(1)
+	// Starting
 	startEntityLoop()
 	startTest()
 	startNewRound()
 	startDebug()
 	
+	
 init
-	getTimer().start(0.1, function initGame)
+	getTimer().start(0.01, function initGame)

@@ -1,12 +1,25 @@
 package CreepNode
 import Entity
 import Creep
+import TempGroups
+import ControlPoint
+import GameConstants
+
+constant int ATTACKERNODE_ID = 'e001'
+constant int DEFENDERNODE_ID = 'e002'
+
+public CreepNode node_leftTop
+public CreepNode node_leftMiddleTop
+public CreepNode node_leftMiddleBot
+public CreepNode node_leftBot
+public CreepNode node_controlPoint
 
 public class CreepNode
 	vec2 target
 	unit inrangeDummy
 	player creepOwner
 	trigger t = CreateTrigger()
+	ControlPoint assoCp = null
 	
 	static function orderAttack()
 		let data = GetTriggerUnit().getUserData() castTo Entity
@@ -22,3 +35,26 @@ public class CreepNode
 		t.registerUnitInRangeSource(inrangeDummy, radius)
 		t.addAction(function CreepNode.orderAttack)
 		
+		
+		
+	
+public function initCreepNodes()
+	initAttackerNodes()
+	initDefenderNodes()
+	
+function initAttackerNodes()
+	let cPos = gg_unit_e001_0005.getPos()
+	// Top Node 1
+	node_leftTop = new CreepNode(gg_unit_e001_0001.getPos(), cPos, TEAM_ONE_CPU, 64.)
+	// Middle Up Node
+	node_leftMiddleTop = new CreepNode(gg_unit_e001_0004.getPos(), cPos, TEAM_ONE_CPU, 64.)
+	// Middle Down Node
+	node_leftMiddleBot = new CreepNode(gg_unit_e001_0016.getPos(), cPos, TEAM_ONE_CPU, 64.)
+	// Bottom Node
+	node_leftBot = new CreepNode(gg_unit_e001_0017.getPos(), cPos, TEAM_ONE_CPU, 64.)
+	// Controlpoint Node
+	node_controlPoint = new CreepNode(gg_unit_e001_0005.getPos(), cPos, TEAM_ONE_CPU, 64.)
+	node_controlPoint.assoCp = controlPoint
+	
+function initDefenderNodes()
+	
