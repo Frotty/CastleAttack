@@ -1,9 +1,20 @@
 package Hero
 import PhysicalUnitEntity
 	
-public class Hero extends PhysicalUnitEntity
+public abstract class Hero extends PhysicalUnitEntity
 	vec3 lastPos
+	static trigger castTrig = CreateTrigger()
 	
-	construct( vec3 pos, unit u )
-		super( pos, u )
+	construct(vec3 pos, unit u)
+		super(pos, u)
+		castTrig.registerUnitEvent(actor, EVENT_UNIT_SPELL_EFFECT)
+		
+	static function evaluateCast()
+		let u = GetTriggerUnit()
+		let data = u.getUserData() castTo Hero
+		data.onCast(GetSpellAbilityId(), vec2(GetSpellTargetX(), GetSpellTargetY()), GetSpellTargetUnit())
+	
+	abstract function onCast(int id, vec2 tpos, unit target)
 
+init
+	Hero.castTrig.addAction(function Hero.evaluateCast)

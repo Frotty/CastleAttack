@@ -1,0 +1,13 @@
+package Footman
+import UnitObjEditing
+import GameConstants
+
+public constant FOOTMAN_ID = OBJ_ED_PREFIX_UNIT + "ftm"
+
+
+
+
+@compiletime function generateFootmen()
+	let def = new UnitDefinition( FOOTMAN_ID, "hfoo" )
+	def.setHitPointsMaximumBase(100)
+	def.setName("Footman")

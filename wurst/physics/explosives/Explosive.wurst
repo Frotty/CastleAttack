@@ -2,7 +2,7 @@ package Explosive
 	import Entity
 	import Fx 
 	
-	public class Explosive extends Entity
+	public abstract class Explosive extends Entity
 		Fx model
 	
 		real radius
@@ -27,8 +27,7 @@ package Explosive
 				if timeout <= 0.
 					explode()
 		
-		function explode()
-			skip
+		abstract function explode()
 			
 			
 endpackage 
