@@ -1,0 +1,22 @@
+package SpellPiercingArrow
+import Projectile
+import ChannelSpellPreset
+import GameConstants
+
+constant real RADIUS = 32.
+public constant string PIERCING_ARROW_SPELL_ID = OBJ_ED_PREFIX_SPELL + "pca"
+
+class PiercingArrow extends Projectile
+	
+	construct(vec3 pos, vec2 target, player owner)
+		super(pos, RADIUS, owner, pos.angleTo2d(target), "Missiles\\SpiritArrow_ByEpsilon.mdx")
+	
+	override function onHit(Entity e)
+		
+	
+	
+@compiletime function generateSpell()
+	let def = new ChannelSpellPreset(PIERCING_ARROW_SPELL_ID, 4)
+	def.setName("Piercing Arrow")
+	def.setTargetType(Targettype.PTARGET)
+	def.setOption(Option.VISIBLE, true)

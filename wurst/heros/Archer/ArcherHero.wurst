@@ -1,0 +1,19 @@
+package ArcherHero
+import Hero
+import GameConstants
+import ObjectIds
+import UnitObjEditing
+
+constant string HERO_ID = OBJ_ED_PREFIX_HERO + "arc"
+
+public class ArcherHero extends Hero
+
+	construct( vec3 pos, player owner )
+		super( pos, createUnit(owner, idString2IdInteger(HERO_ID), pos, angle(0)) )
+
+	override function onCast(int id, vec2 tpos, unit target)
+	
+
+@compiletime function generateArcherHero()
+	let def = new HeroDefinition(HERO_ID, "Hvwd")
+	def.setName("Archer Hero")

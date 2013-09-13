@@ -1,10 +1,16 @@
 package Footman
+import Creep
 import UnitObjEditing
 import GameConstants
+import ObjectIds
 
-public constant FOOTMAN_ID = OBJ_ED_PREFIX_UNIT + "ftm"
+public constant FOOTMAN_ID = OBJ_ED_PREFIX_UNIT + "ftv"
 
-
+public class CreepFootman extends Creep
+	
+	construct(vec3 pos, player owner, vec2 target)
+		super(pos, idString2IdInteger(FOOTMAN_ID), owner, target)
+		
 
 
 @compiletime function generateFootmen()

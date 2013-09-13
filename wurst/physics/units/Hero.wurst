@@ -1,5 +1,6 @@
 package Hero
-import PhysicalUnitEntity
+import public PhysicalUnitEntity
+import public GameConstants
 	
 public abstract class Hero extends PhysicalUnitEntity
 	vec3 lastPos

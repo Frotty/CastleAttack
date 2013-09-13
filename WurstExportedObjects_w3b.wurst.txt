@@ -1,0 +1,12 @@
+package WurstExportedObjects_w3b
+import ObjEditingNatives
+
+//modifiedTable: 
+
+@compiletime function create_w3b_B000()
+	let u = createObjectDefinition("w3b", "B000", "LTg1")
+	u.setString("bnam", "CastleGate")
+	u.setString("bfil", "war3mapImported\\Porticulis Gate 1.mdl")
+	u.setString("bgpm", "war3mapImported\\Porticulis Gate 1.mdl")
+
+
