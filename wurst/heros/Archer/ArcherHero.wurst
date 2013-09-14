@@ -14,6 +14,9 @@ public class ArcherHero extends Hero
 	override function onCast(int id, vec2 tpos, unit target)
 	
 
+init
+	addToDefendPool(idString2IdInteger(HERO_ID))
+
 @compiletime function generateArcherHero()
 	let def = new HeroDefinition(HERO_ID, "Hvwd")
 	def.setName("Archer Hero")

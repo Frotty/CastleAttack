@@ -1,0 +1,48 @@
+package HeroPick
+import LinkedList
+
+LinkedList<int> attackIds = new LinkedList<int>()
+LinkedList<int> defendIds = new LinkedList<int>()
+LinkedList<unit> excess = new LinkedList<unit>()
+
+constant real distance = 128.
+vec2 attackPos = vec2(-6000,2800)
+vec2 defendPos = vec2(5400,2800)
+
+public function addToAttackPool(int id)
+	attackIds.add(id)
+	
+public function addToDefendPool(int id)
+	defendIds.add(id)
+	
+public function createPickableHeroes()
+	createAttackerHeroes()
+	createDefenderHeroes()
+	
+function createAttackerHeroes()
+	boolean even = attackIds.getSize() % 2 == 0
+	int negHalfSize = -(attackIds.getSize() div 2)
+	real y = 0
+	if even
+		y = -64 + distance * (negHalfSize-1)
+	else
+		y = distance * (negHalfSize)
+		
+	for id in attackIds
+		createUnit(DUMMY_PLAYER, id, vec2(attackPos.x, attackPos.y+y), angle(0))
+		y += distance
+		
+function createDefenderHeroes()
+	boolean even = attackIds.getSize() % 2 == 0
+	int negHalfSize = -(attackIds.getSize() div 2)
+	real y = 0
+	if even
+		y = -64 + distance * (negHalfSize-1)
+	else
+		y = distance * (negHalfSize)
+		
+	for id in attackIds
+		createUnit(DUMMY_PLAYER, id, vec2(defendPos.x, defendPos.y+y), (180).asAngleDegrees())
+		y += distance
+		
+	

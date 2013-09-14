@@ -11,39 +11,6 @@ import ObjEditingNatives
 	u.setReal("usca", 2.5)
 
 
-@compiletime function create_w3u_e000()
-	let u = createObjectDefinition("w3u", "e000", "ewsp")
-	u.setString("unam", "xe unit")
-	u.setString("upgr", "")
-	u.setString("ubui", "")
-	u.setString("uabi", "Aeth")
-	u.setUnreal("umpr", 0.1)
-	u.setInt("umpm", 1000)
-	u.setInt("umpi", 1000)
-	u.setUnreal("ucol", 0.0)
-	u.setString("urac", "commoner")
-	u.setInt("ufoo", 0)
-	u.setString("udty", "divine")
-	u.setString("uico", "replaceableTextures\\CommandButtons\\BTNtemp.blp")
-	u.setInt("umvs", 522)
-	u.setString("umdl", "dummy.mdl")
-	u.setReal("uble", 0.0)
-	u.setUnreal("ucbs", 0.0)
-	u.setReal("umxp", 0.0)
-	u.setReal("umxr", 0.0)
-	u.setString("uspa", "")
-	u.setUnreal("uimz", 0.0)
-	u.setUnreal("ulpz", 0.0)
-	u.setString("unsf", "(Caster System?)")
-	u.setInt("uhom", 1)
-	u.setInt("usin", 1)
-	u.setString("utyp", "_")
-	u.setUnreal("uprw", 1.0)
-	u.setString("utip", "")
-	u.setString("utub", "http://wc3campaigns.net/vexorian")
-	u.setInt("usid", 1)
-
-
 @compiletime function create_w3u_H001()
 	let u = createObjectDefinition("w3u", "H001", "Hvwd")
 	u.setString("unam", "Archer")
@@ -167,6 +134,17 @@ import ObjEditingNatives
 	u.setString("unsf", "(attacker)")
 
 
+@compiletime function create_w3u_o000()
+	let u = createObjectDefinition("w3u", "o000", "ocat")
+	u.setString("unam", "BigOldCatapult")
+	u.setInt("uver", 1)
+	u.setString("umdl", "war3mapImported\\Trebuchet.mdl")
+	u.setReal("usca", 1.2)
+	u.setInt("uclr", 200)
+	u.setInt("uclg", 200)
+	u.setInt("uclb", 200)
+
+
 @compiletime function create_w3u_xdum()
 	let u = createObjectDefinition("w3u", "xdum", "ewsp")
 	u.setInt("wurs", 42)
@@ -199,10 +177,23 @@ import ObjEditingNatives
 	u.setString("utip", "")
 
 
-@compiletime function create_w3u_uftv()
-	let u = createObjectDefinition("w3u", "uftv", "hfoo")
+@compiletime function create_w3u_Uarc()
+	let u = createObjectDefinition("w3u", "Uarc", "earc")
+	u.setInt("wurs", 42)
+	u.setInt("uhpm", 100)
+	u.setString("unam", "Archer")
+
+
+@compiletime function create_w3u_Uftv()
+	let u = createObjectDefinition("w3u", "Uftv", "hfoo")
 	u.setInt("wurs", 42)
 	u.setInt("uhpm", 100)
 	u.setString("unam", "Footman")
+
+
+@compiletime function create_w3u_Yarc()
+	let u = createObjectDefinition("w3u", "Yarc", "Hvwd")
+	u.setInt("wurs", 42)
+	u.setString("unam", "Archer Hero")
 
 

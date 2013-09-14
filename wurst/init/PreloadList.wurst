@@ -1,0 +1,32 @@
+package PreloadList
+import LinkedList
+import PreloadHandler
+
+LinkedList<int> unitIds = new LinkedList<int>()
+LinkedList<int> spellIds = new LinkedList<int>()
+
+public enum PreloadType
+	UNIT
+	SPELL
+
+public function addToPreload(int id, PreloadType typ)
+	if typ == PreloadType.UNIT
+		unitIds.add(id)
+	else 
+		spellIds.add(id)
+
+		
+public function preloadAll()
+	preloadUnits()
+	preloadSpells()
+
+function preloadUnits()
+	for id in unitIds
+		preloadUnit(id)
+		
+	getTimer().start(0, function preloadSpells)
+	
+function preloadSpells()
+	for id in spellIds
+		preloadAbility(id)
+	

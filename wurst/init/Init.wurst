@@ -6,6 +6,7 @@ import Debug
 import ControlPoint
 import CreepNode
 import CreepSpawn
+import PreloadList
 
 
 vec2 startpos = vec2(-6144,3584)
@@ -21,6 +22,29 @@ function initGame()
 	startNewRound()
 	startDebug()
 	
+function initPreload()
+	print(msg)
+	FogEnable(false)
+	FogMaskEnable(false)
+	preloadAll()
+	
+function preloadFinished()
+	SetDestructableAnimation(gg_dest_B009_0014, "death")
+	FogEnable(true)
+	FogMaskEnable(true)
+	print(msg + " finished!")
+	
+
+string msg = "|cffA5A5A5Preloading"
+real farz = 500
+function preloadNote()
+	CameraSetupApplyForceDuration(gg_cam_InitCam, true, 0.)
+	CameraSetupSetField(gg_cam_InitCam, CAMERA_FIELD_FARZ, farz, 1. )
+	farz += 10.
+	if farz > 3000
+		GetExpiredTimer().release()
+		preloadFinished()
 	
 init
-	getTimer().start(0.01, function initGame)
+	getTimer().start(0.01, function initPreload)
+	getTimer().startPeriodic(ANIMATION_PERIOD, function preloadNote)

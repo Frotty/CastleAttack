@@ -1,7 +1,8 @@
 package Hero
 import public PhysicalUnitEntity
 import public GameConstants
-	
+import public HeroPick
+
 public abstract class Hero extends PhysicalUnitEntity
 	vec3 lastPos
 	static trigger castTrig = CreateTrigger()

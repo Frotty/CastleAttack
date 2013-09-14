@@ -1,0 +1,15 @@
+package HeroPickDummy
+import Hero
+
+public class HeroPickDummy
+	Hero dummyReference
+	
+	
+function onSelect() returns boolean
+	let u = GetTriggerUnit()
+	print("select " + u.getName())
+	return false
+	
+init
+	let t = CreateTrigger()
+	t.addCondition(Condition(function onSelect))
