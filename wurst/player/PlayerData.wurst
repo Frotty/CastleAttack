@@ -132,7 +132,7 @@ function initPlayers()
 			leaveTrig.registerPlayerEvent(Player(i), EVENT_PLAYER_LEAVE)
 			r++
 	playercount = r
-	CreateTrigger().registerTimerEvent(0.01, false).addAction(function initMB)
+	initMB()
 	TimerStart(CreateTimer(), 1., true, function setTime)
 	GetExpiredTimer().release()
 

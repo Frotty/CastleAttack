@@ -7,26 +7,40 @@ import ControlPoint
 import CreepNode
 import CreepSpawn
 import PreloadList
+import ArcherHero
 
 
 vec2 startpos = vec2(-6144,3584)
 
 function initGame()
 	// Inits
+	print("|cff5A5A5A[Init] |r- Controlpoint")
 	initControlpoint()
+	print("|cff5A5A5A[Init] |r- CreepNodes")
 	initCreepNodes()
+	print("|cff5A5A5A[Init] |r- CreepSpawners")
 	initCreepSpawners(1)
 	// Starting
+	print("|cff5A835A[Start] |r- Entity Loop")
 	startEntityLoop()
+	print("|cff5A835A[Start] |r- Test")
 	startTest()
+	print("|cff5A835A[Start] |r- New Round")
 	startNewRound()
+	print("|cff5A835A[Start] |r- Debug")
 	startDebug()
+	print("|cff5A835A[Start] |r- HeroTest")
+	new ArcherHero(vec3(-5700,3000,0), Player(0))
+	print("done")
 	
 function initPreload()
 	print(msg)
-	FogEnable(false)
-	FogMaskEnable(false)
-	preloadAll()
+//	FogEnable(false)
+//	FogMaskEnable(false)
+//	preloadAll()
+	print("init ")
+	initGame()
+	print("init Game done")
 	
 function preloadFinished()
 	SetDestructableAnimation(gg_dest_B009_0014, "death")
@@ -47,4 +61,4 @@ function preloadNote()
 	
 init
 	getTimer().start(0.01, function initPreload)
-	getTimer().startPeriodic(ANIMATION_PERIOD, function preloadNote)
+	//getTimer().startPeriodic(ANIMATION_PERIOD, function preloadNote)

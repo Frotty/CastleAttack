@@ -793,7 +793,7 @@ import ObjEditingNatives
 @compiletime function create_w3d_D00Z()
 	let u = createObjectDefinition("w3d", "D00Z", "ZRrk")
 	u.setLvlDataString("dnam", 0, 0, "*RockDia 0")
-	u.setLvlDataString("dptx", 0, 0, "")
+	u.setLvlDataString("dptx", 0, 0, "PathTextures\\4x4unbuildable.tga")
 	u.setLvlDataUnreal("dmis", 0, 0, 0.4)
 	u.setLvlDataUnreal("dmas", 0, 0, 4.0)
 	u.setLvlDataInt("dvr1", 6, 0, 130)
@@ -825,12 +825,13 @@ import ObjEditingNatives
 	u.setLvlDataInt("dvb1", 3, 0, 245)
 	u.setLvlDataInt("dvb1", 4, 0, 235)
 	u.setLvlDataInt("dvb1", 5, 0, 240)
+	u.setLvlDataInt("dwlk", 0, 0, 1)
 
 
 @compiletime function create_w3d_D010()
 	let u = createObjectDefinition("w3d", "D010", "ZRrk")
 	u.setLvlDataString("dnam", 0, 0, "*RockDia 0.2")
-	u.setLvlDataString("dptx", 0, 0, "")
+	u.setLvlDataString("dptx", 0, 0, "PathTextures\\4x4unbuildable.tga")
 	u.setLvlDataUnreal("dmis", 0, 0, 0.4)
 	u.setLvlDataUnreal("dmas", 0, 0, 4.0)
 	u.setLvlDataInt("dvr1", 6, 0, 130)
@@ -864,12 +865,13 @@ import ObjEditingNatives
 	u.setLvlDataInt("dvb1", 3, 0, 245)
 	u.setLvlDataInt("dvb1", 4, 0, 235)
 	u.setLvlDataInt("dvb1", 5, 0, 240)
+	u.setLvlDataInt("dwlk", 0, 0, 1)
 
 
 @compiletime function create_w3d_D011()
 	let u = createObjectDefinition("w3d", "D011", "ZRrk")
 	u.setLvlDataString("dnam", 0, 0, "*RockDia 1.0")
-	u.setLvlDataString("dptx", 0, 0, "")
+	u.setLvlDataString("dptx", 0, 0, "PathTextures\\4x4unbuildable.tga")
 	u.setLvlDataUnreal("dmis", 0, 0, 0.4)
 	u.setLvlDataUnreal("dmas", 0, 0, 4.0)
 	u.setLvlDataInt("dvr1", 6, 0, 130)
@@ -903,6 +905,7 @@ import ObjEditingNatives
 	u.setLvlDataInt("dvb1", 3, 0, 245)
 	u.setLvlDataInt("dvb1", 4, 0, 235)
 	u.setLvlDataInt("dvb1", 5, 0, 240)
+	u.setLvlDataInt("dwlk", 0, 0, 1)
 
 
 @compiletime function create_w3d_D012()

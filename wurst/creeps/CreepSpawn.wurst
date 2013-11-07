@@ -84,6 +84,7 @@ public function initCreepSpawners(int round)
 	// Top Attacker Spawner
 	var spwn = new Spawner(gg_unit_e003_0021, owner)
 	spwn.target1 = gg_unit_e001_0001.getPos()
+	print("spawn target " + spwn.target1.toString())
 	spwn.target2 = gg_unit_e001_0004.getPos()
 	// Middle Attacker Spawner
 	spwn = new Spawner(gg_unit_e003_0023, owner)

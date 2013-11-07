@@ -167,3 +167,8 @@ import ObjEditingNatives
 	u.setString("bshd", "")
 
 
+@compiletime function create_w3b_B00B()
+	let u = createObjectDefinition("w3b", "B00B", "OTip")
+	u.setString("bfil", "war3mapImported\\SteinLords4b.mdl")
+
+

@@ -1,18 +1,57 @@
 package SpellPiercingArrow
 import Projectile
+import PhysicalUnitEntity
 import ChannelSpellPreset
 import GameConstants
+import TempGroups
+import LinkedList
+import Hero
+import Creep
+import Terrain
 
 constant real RADIUS = 32.
 public constant string PIERCING_ARROW_SPELL_ID = OBJ_ED_PREFIX_SPELL + "pca"
 
 class PiercingArrow extends Projectile
+	int maxPierced
+	boolean piercedHero = false
 	
-	construct(vec3 pos, vec2 target, player owner)
+	LinkedList<PhysicalUnitEntity> piercedEntities = new LinkedList<PhysicalUnitEntity>()
+	
+	construct(vec3 pos, vec2 target, player owner, int lvl)
 		super(pos, RADIUS, owner, pos.angleTo2d(target), "Missiles\\SpiritArrow_ByEpsilon.mdx")
-	
-	override function onHit(Entity e)
+		maxPierced = 2 + lvl
 		
+	override function update()
+		super.update()
+		if piercedEntities.getSize() < maxPierced
+			ENUM_GROUP.enumUnitsInRange(pos.toVec2(), RADIUS)
+			for u in ENUM_GROUP
+				let data = u.getUserData() castTo PhysicalUnitEntity
+				if (data.pos.z-pos.z).abs() < 10.
+					if data instanceof Creep
+						piercedEntities.add(data)
+						u.setPropWindow(0.)
+						u.setTurnSpeed(0.)
+					else if data instanceof Hero
+						if piercedHero
+							terminate()
+						else
+							piercedHero = true
+							piercedEntities.add(data)
+							u.setPropWindow(0.)
+							u.setTurnSpeed(0.)
+					else
+						terminate()
+		int i = 0
+		let tz = getTerrainZ(pos.x, pos.y)
+		for pe in piercedEntities
+			pe.setXYZ(pos.polarProject(i * 16., xyAngle, zAngle), tz)
+		let spd = getSpeed()
+		if spd > 1.
+			setSpeed(getSpeed() * (0.99-0.02*piercedEntities.getSize()))
+		else 
+			terminate()
 	
 	
 @compiletime function generateSpell()
@@ -20,3 +59,8 @@ class PiercingArrow extends Projectile
 	def.setName("Piercing Arrow")
 	def.setTargetType(Targettype.PTARGET)
 	def.setOption(Option.VISIBLE, true)
+	def.setFollowThroughTime(0.4)
+	def.setDisablesOther(false)
+	for i = 0 to 3
+		def.setCastingTime(i,0)
+		

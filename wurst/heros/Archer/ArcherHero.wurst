@@ -3,8 +3,10 @@ import Hero
 import GameConstants
 import ObjectIds
 import UnitObjEditing
+import SpellPiercingArrow
 
 constant string HERO_ID = OBJ_ED_PREFIX_HERO + "arc"
+
 
 public class ArcherHero extends Hero
 
@@ -12,6 +14,8 @@ public class ArcherHero extends Hero
 		super( pos, createUnit(owner, idString2IdInteger(HERO_ID), pos, angle(0)) )
 
 	override function onCast(int id, vec2 tpos, unit target)
+		print("yay")
+
 	
 
 init
@@ -20,3 +24,6 @@ init
 @compiletime function generateArcherHero()
 	let def = new HeroDefinition(HERO_ID, "Hvwd")
 	def.setName("Archer Hero")
+	def.setProperNames("Archer")
+	def.setNormalAbilities(PIERCING_ARROW_SPELL_ID)
+	def.setHeroAbilities(PIERCING_ARROW_SPELL_ID)

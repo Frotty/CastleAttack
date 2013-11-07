@@ -18,9 +18,9 @@ public function startNewRound()
 		return
 	if roundCount > 0
 		cleanupArena()
+	print("started warmup1")
 	startWarmup()
-
-		
+	print("started warmup2")
 	roundCount++
 
 function startWarmup()
@@ -45,6 +45,8 @@ function enterWarmupBlock()
 		DisplayTextToPlayer(data.owner,0,0,"|cff639C31You cannot leave your base during warmup")
 		addEffect("Abilities\\Weapons\\Bolt\\BoltImpact.mdl", data.pos).destr()
 		if data.pos.x > gg_rct_warmupblock.getCenterX()
-			data.addVel(vec3(20, 0, 1))
+			data.setVel(vec3(20, 0, 1))
 		else
-			data.addVel(vec3(-20, 0, 1))
+			data.setVel(vec3(-20, 0, 1))
+			
+	

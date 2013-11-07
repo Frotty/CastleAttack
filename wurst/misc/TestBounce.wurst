@@ -1,0 +1,38 @@
+package TestBounce
+import Entity
+import Terrain
+import GameConstants
+class Ball extends FxEntity
+	
+	construct(vec3 pos)
+		super( pos, 32, Player(0), angle(0), "Abilities\\Weapons\\AncientProtectorMissile\\AncientProtectorMissile.mdl")
+		
+	override function update()
+		
+		if getTerrainZ(pos.x, pos.y) > pos.z
+		  //  get terrain normal vector
+			let nrml = getTerrainNormal(pos.x, pos.y, 4).norm()
+			print(nrml.toString())
+			if vel.dot(nrml) > 0
+			  //  ball is already going away from the surface, do not bounce
+				return
+		  //  get the component of speed vector that is perpendicular to the terrain
+			var v= vel.project(nrml)
+		  //  invert the ball's speed component that's perpendicular to terrain
+			print("before " + vel.z.toString())
+			v *= -2.0
+			vel += v
+			print("after " + vel.z.toString())
+		  // bounce effect
+		else
+			vel+= gravity
+		super.update()
+
+
+function spawnBall()
+	new Ball(vec3(GetCameraEyePositionX(),GetCameraEyePositionY()+500,500))
+
+init
+	let t = CreateTrigger()
+	t.registerPlayerEvent(Player(0), EVENT_PLAYER_END_CINEMATIC)
+	t.addAction(function spawnBall)

@@ -4,9 +4,10 @@ import Creep
 import TempGroups
 import ControlPoint
 import GameConstants
+import UnitObjEditing
 
-constant int ATTACKERNODE_ID = 'e001'
-constant int DEFENDERNODE_ID = 'e002'
+constant string ATTACKERNODE_ID = OBJ_ED_PREFIX_UNIT + "ati"
+constant string DEFENDERNODE_ID = OBJ_ED_PREFIX_UNIT + "dfi"
 
 public CreepNode node_leftTop
 public CreepNode node_leftMiddleTop
@@ -22,16 +23,23 @@ public class CreepNode
 	ControlPoint assoCp = null
 	
 	static function orderAttack()
+		print("order attack 1")
 		let data = GetTriggerUnit().getUserData() castTo Entity
 		let sdata = GetTriggeringTrigger().getSource().getUserData() castTo CreepNode
+		print("Target" + sdata.target.toString())
+		print("order attack 2")
 		if data instanceof Creep
+			print("order attack is creep")
 			let cdata = data castTo Creep
 			cdata.actor.issuePointOrder("attack", sdata.target)
+			print("order attack ordered")
 	
 	construct(vec2 pos, vec2 target, player creepOwner, real radius)
 		this.target = target
 		this.creepOwner = creepOwner
-		inrangeDummy = createUnit(DUMMY_PLAYER, 'e000', pos, angle(0))
+		print("this target " + target.toString())
+		inrangeDummy = createUnit(DUMMY_PLAYER, DUMMY_UNIT_ID, pos, angle(0))
+		inrangeDummy.setUserData(this castTo int)
 		t.registerUnitInRangeSource(inrangeDummy, radius)
 		t.addAction(function CreepNode.orderAttack)
 		
@@ -44,7 +52,8 @@ public function initCreepNodes()
 	
 function initAttackerNodes()
 	let cPos = gg_unit_e001_0005.getPos()
-	// Top Node 1
+	print(cPos.toString())
+	// Top Node
 	node_leftTop = new CreepNode(gg_unit_e001_0001.getPos(), cPos, TEAM_ONE_CPU, 64.)
 	// Middle Up Node
 	node_leftMiddleTop = new CreepNode(gg_unit_e001_0004.getPos(), cPos, TEAM_ONE_CPU, 64.)
@@ -57,4 +66,21 @@ function initAttackerNodes()
 	node_controlPoint.assoCp = controlPoint
 	
 function initDefenderNodes()
+	
+	
+	
+@compiletime function generateNodeObjects()
+	let u = new UnitDefinition(ATTACKERNODE_ID, DUMMY_UNIT_ID_STRING)
+	u.setName("MovementNode")
+	u.setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNTelescope.blp")
+	u.setModelFile("Objects\\InvalidObject\\InvalidObject.mdl")
+	u.setNameEditorSuffix("(attacker)")
+
+	let u2 = new UnitDefinition(DEFENDERNODE_ID, DUMMY_UNIT_ID_STRING)
+	u2.setName("MovementNode")
+	u2.setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNTelescope.blp")
+	u2.setModelFile("Objects\\Invalidmodel\\Invalidmodel.mdl")
+	u2.setNameEditorSuffix("(defender)")
+
+
 	

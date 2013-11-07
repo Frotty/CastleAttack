@@ -3,9 +3,9 @@ package GameConstants
 	public constant player TEAM_ONE_CPU = Player(4)
 	public constant player TEAM_TWO_CPU = Player(9)
 	
-	public constant string OBJ_ED_PREFIX_UNIT 		= "U"
-	public constant string OBJ_ED_PREFIX_SPELL 		= "X"
-	public constant string OBJ_ED_PREFIX_BUILDING 	= "B"
+	public constant string OBJ_ED_PREFIX_UNIT 		= "a"
+	public constant string OBJ_ED_PREFIX_SPELL 		= "x"
+	public constant string OBJ_ED_PREFIX_BUILDING 	= "b"
 	public constant string OBJ_ED_PREFIX_HERO		= "Y"
 
 	public vec3 gravity = vec3(0,0,-0.8)

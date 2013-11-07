@@ -159,7 +159,7 @@ import ObjEditingNatives
 	u.setString("urac", "commoner")
 	u.setInt("ufoo", 0)
 	u.setString("uarm", "divine")
-	u.setString("uico", "replaceableTextures\\CommandButtons\\BTNtemp.blp")
+	u.setString("uico", "ReplaceableTextures\\CommandButtons\\BTNtemp.blp")
 	u.setInt("umvs", 522)
 	u.setString("umdl", "dummy.mdl")
 	u.setReal("uble", 0.0)
@@ -177,15 +177,33 @@ import ObjEditingNatives
 	u.setString("utip", "")
 
 
-@compiletime function create_w3u_Uarc()
-	let u = createObjectDefinition("w3u", "Uarc", "earc")
+@compiletime function create_w3u_aati()
+	let u = createObjectDefinition("w3u", "aati", "xdum")
+	u.setInt("wurs", 42)
+	u.setString("unam", "MovementNode")
+	u.setString("uico", "ReplaceableTextures\\CommandButtons\\BTNTelescope.blp")
+	u.setString("umdl", "Objects\\InvalidObject\\InvalidObject.mdl")
+	u.setString("unsf", "(attacker)")
+
+
+@compiletime function create_w3u_adfi()
+	let u = createObjectDefinition("w3u", "adfi", "xdum")
+	u.setInt("wurs", 42)
+	u.setString("unam", "MovementNode")
+	u.setString("uico", "ReplaceableTextures\\CommandButtons\\BTNTelescope.blp")
+	u.setString("umdl", "Objects\\Invalidmodel\\Invalidmodel.mdl")
+	u.setString("unsf", "(defender)")
+
+
+@compiletime function create_w3u_aarc()
+	let u = createObjectDefinition("w3u", "aarc", "earc")
 	u.setInt("wurs", 42)
 	u.setInt("uhpm", 100)
 	u.setString("unam", "Archer")
 
 
-@compiletime function create_w3u_Uftv()
-	let u = createObjectDefinition("w3u", "Uftv", "hfoo")
+@compiletime function create_w3u_aftv()
+	let u = createObjectDefinition("w3u", "aftv", "hfoo")
 	u.setInt("wurs", 42)
 	u.setInt("uhpm", 100)
 	u.setString("unam", "Footman")
@@ -195,5 +213,8 @@ import ObjEditingNatives
 	let u = createObjectDefinition("w3u", "Yarc", "Hvwd")
 	u.setInt("wurs", 42)
 	u.setString("unam", "Archer Hero")
+	u.setString("upro", "Archer")
+	u.setString("uabi", "xpca")
+	u.setString("uhab", "xpca")
 
 

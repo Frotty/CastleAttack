@@ -47,8 +47,6 @@ public abstract class Projectile extends FxEntity
 		this.xyAngle = zA
 		fx.setZAngle(zA)
 		
-	abstract function onHit(Entity e)
-		
 		
 	override function update()
 		pos += vel
