@@ -6,8 +6,8 @@ import ControlPoint
 import GameConstants
 import UnitObjEditing
 
-constant string ATTACKERNODE_ID = OBJ_ED_PREFIX_UNIT + "ati"
-constant string DEFENDERNODE_ID = OBJ_ED_PREFIX_UNIT + "dfi"
+constant ATTACKERNODE_ID = OBJ_ED_PREFIX_UNIT + '0ati'
+constant DEFENDERNODE_ID = OBJ_ED_PREFIX_UNIT + '0dfi'
 
 public CreepNode node_leftTop
 public CreepNode node_leftMiddleTop
@@ -70,13 +70,13 @@ function initDefenderNodes()
 	
 	
 @compiletime function generateNodeObjects()
-	let u = new UnitDefinition(ATTACKERNODE_ID, DUMMY_UNIT_ID_STRING)
+	let u = new UnitDefinition(ATTACKERNODE_ID, DUMMY_UNIT_ID)
 	u.setName("MovementNode")
 	u.setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNTelescope.blp")
 	u.setModelFile("Objects\\InvalidObject\\InvalidObject.mdl")
 	u.setNameEditorSuffix("(attacker)")
 
-	let u2 = new UnitDefinition(DEFENDERNODE_ID, DUMMY_UNIT_ID_STRING)
+	let u2 = new UnitDefinition(DEFENDERNODE_ID, DUMMY_UNIT_ID)
 	u2.setName("MovementNode")
 	u2.setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNTelescope.blp")
 	u2.setModelFile("Objects\\Invalidmodel\\Invalidmodel.mdl")

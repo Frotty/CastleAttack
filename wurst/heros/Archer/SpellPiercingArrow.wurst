@@ -10,7 +10,7 @@ import Creep
 import Terrain
 
 constant real RADIUS = 32.
-public constant string PIERCING_ARROW_SPELL_ID = OBJ_ED_PREFIX_SPELL + "pca"
+public constant PIERCING_ARROW_SPELL_ID = OBJ_ED_PREFIX_SPELL + '0pca'
 
 class PiercingArrow extends Projectile
 	int maxPierced

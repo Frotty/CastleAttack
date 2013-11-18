@@ -5,13 +5,13 @@ import ObjectIds
 import UnitObjEditing
 import SpellPiercingArrow
 
-constant string HERO_ID = OBJ_ED_PREFIX_HERO + "arc"
+constant HERO_ID = OBJ_ED_PREFIX_HERO + '0arc'
 
 
 public class ArcherHero extends Hero
 
 	construct( vec3 pos, player owner )
-		super( pos, createUnit(owner, idString2IdInteger(HERO_ID), pos, angle(0)) )
+		super( pos, createUnit(owner, HERO_ID, pos, angle(0)) )
 
 	override function onCast(int id, vec2 tpos, unit target)
 		print("yay")
@@ -19,11 +19,11 @@ public class ArcherHero extends Hero
 	
 
 init
-	addToDefendPool(idString2IdInteger(HERO_ID))
+	addToDefendPool(HERO_ID)
 
 @compiletime function generateArcherHero()
-	let def = new HeroDefinition(HERO_ID, "Hvwd")
+	let def = new HeroDefinition(HERO_ID, 'Hvwd')
 	def.setName("Archer Hero")
 	def.setProperNames("Archer")
-	def.setNormalAbilities(PIERCING_ARROW_SPELL_ID)
-	def.setHeroAbilities(PIERCING_ARROW_SPELL_ID)
+	def.setAbilities(idInteger2IdString(PIERCING_ARROW_SPELL_ID))
+	def.setHeroAbilities(idInteger2IdString(PIERCING_ARROW_SPELL_ID))

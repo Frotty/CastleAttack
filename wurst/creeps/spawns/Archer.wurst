@@ -2,12 +2,12 @@ package Archer
 import UnitObjEditing
 import GameConstants
 
-public constant ARCHER_ID = OBJ_ED_PREFIX_UNIT + "arc"
+public constant ARCHER_ID = OBJ_ED_PREFIX_UNIT + '0arc'
 
 
 
 
 @compiletime function generateArcher()
-	let def = new UnitDefinition( ARCHER_ID, "earc" )
+	let def = new UnitDefinition( ARCHER_ID, 'earc' )
 	def.setHitPointsMaximumBase(100)
 	def.setName("Archer")

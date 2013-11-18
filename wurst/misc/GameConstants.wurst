@@ -3,10 +3,10 @@ package GameConstants
 	public constant player TEAM_ONE_CPU = Player(4)
 	public constant player TEAM_TWO_CPU = Player(9)
 	
-	public constant string OBJ_ED_PREFIX_UNIT 		= "a"
-	public constant string OBJ_ED_PREFIX_SPELL 		= "x"
-	public constant string OBJ_ED_PREFIX_BUILDING 	= "b"
-	public constant string OBJ_ED_PREFIX_HERO		= "Y"
+	public constant int OBJ_ED_PREFIX_UNIT 		= ('a'-'0')*256*256*256
+	public constant int OBJ_ED_PREFIX_SPELL 	= ('x'-'0')*256*256*256
+	public constant int OBJ_ED_PREFIX_BUILDING 	= ('b'-'0')*256*256*256
+	public constant int OBJ_ED_PREFIX_HERO		= ('Y'-'0')*256*256*256
 
 	public vec3 gravity = vec3(0,0,-0.8)
 	public string array colorcode

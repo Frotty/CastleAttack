@@ -4,16 +4,16 @@ import UnitObjEditing
 import GameConstants
 import ObjectIds
 
-public constant FOOTMAN_ID = OBJ_ED_PREFIX_UNIT + "ftv"
+public constant FOOTMAN_ID = OBJ_ED_PREFIX_UNIT + '0ftv'
 
 public class CreepFootman extends Creep
 	
 	construct(vec3 pos, player owner, vec2 target)
-		super(pos, idString2IdInteger(FOOTMAN_ID), owner, target)
+		super(pos, FOOTMAN_ID, owner, target)
 		
 
 
 @compiletime function generateFootmen()
-	let def = new UnitDefinition( FOOTMAN_ID, "hfoo" )
+	let def = new UnitDefinition( FOOTMAN_ID, 'hfoo' )
 	def.setHitPointsMaximumBase(100)
 	def.setName("Footman")
