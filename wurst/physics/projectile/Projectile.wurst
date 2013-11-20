@@ -3,7 +3,7 @@ import public Entity
 import Angle
 
 
-public abstract class Projectile extends FxEntity
+public class Projectile extends FxEntity
 	// Angles
 	protected angle xyAngle
 	protected angle zAngle

@@ -1,0 +1,107 @@
+package SpellGunTurret
+import Projectile
+import PhysicalUnitEntity
+import GameConstants
+import TempGroups
+import LinkedList
+import Hero
+import Creep
+import Terrain
+import AbilityObjEditing
+import UnitObjEditing
+import ObjectIds
+import ChannelSpellPreset
+import EngineerHero
+import ClosureTimers
+import ProjectileWithCollision
+
+public constant GUN_TURRET_SPELL_ID = OBJ_ED_PREFIX_SPELL + '0gtu'
+public constant GUN_TURRET_TOWER_ID = OBJ_ED_PREFIX_UNIT + '0gt0'
+
+
+// configuration functions:
+function duration(int lvl) returns real
+	return 30.
+
+function attackCooldown(int lvl) returns real
+	return 2.5
+	
+constant attackRange = 765
+	
+constant missileModel = "Abilities\\Spells\\NightElf\\CorrosiveBreath\\CorrosiveBreathMissile.mdl"
+
+public class SpellGunTurret extends UnitEntity
+	int lvl
+	
+	construct(EngineerHero owner, vec2 pos, int lvl)
+		super(pos.withTerrainZ(), 50, createUnit(owner.actor.getOwner(), GUN_TURRET_TOWER_ID + lvl, pos, angle(0)))
+		this.lvl = lvl
+		this.active = false
+		doAfter(duration(lvl), () -> begin
+			destroy this
+		end)
+	
+	function fire(unit target)	
+		new SpellGunTurretMissile(this, pos.angleTo2d(target.getPos()))
+		
+	ondestroy
+		actor.kill()
+		
+class SpellGunTurretMissile extends ProjectileWithCollision
+	
+	construct(SpellGunTurret turret, angle direction)
+		super(turret.pos + vec3(0,0,30), 75, turret.owner, direction, missileModel)
+		setRanged(1. * attackRange)
+		setSpeed(400*ANIMATION_PERIOD)
+		
+	override function onCollision(UnitEntity other)
+		if other.owner.isEnemyOf(owner)
+			// TODO do damage etc.
+			terminate()
+			
+	
+
+function onAttack()
+	UnitEntity entity = UnitEntity.getForUnit(GetAttacker())
+	if entity instanceof SpellGunTurret
+		(entity castTo SpellGunTurret).fire(GetTriggerUnit())
+
+init 
+	CreateTrigger()
+		.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
+		.addAction(function onAttack)
+	
+	
+
+@compiletime function generateSpell()
+	// based on shadow hunter serpent wards
+	int levelCount = 4
+	let def = new ChannelSpellPreset(GUN_TURRET_SPELL_ID, levelCount)
+	def.setName("Gun Turret")
+	def.setIcon("ReplaceableTextures\\CommandButtons\\BTNElvenGuardTower.blp")
+	def.setIconNormal("ReplaceableTextures\\CommandButtons\\BTNElvenGuardTower.blp")
+	def.setTargetType(Targettype.PTARGET)
+	def.setOption(Option.VISIBLE, true)
+	def.setFollowThroughTime(0.4)
+	def.setDisablesOther(false)
+	for lvl = 1 to levelCount
+		createTower(lvl)
+		def.setCastingTime(lvl,0)
+		def.setCastRange(lvl, 300)
+
+function createTower(int lvl)
+	// based on high elven guard tower:
+	let def = new BuildingDefinition(GUN_TURRET_TOWER_ID + lvl, 'negt')
+	def.setName("Gun Turret Level " + lvl.toString())
+	def.setHitPointsMaximumBase(100 + lvl*100)
+	// no projectile
+	def.setAttack1ProjectileArt("")
+	// 0 damage
+	def.setAttack1DamageBase(-1)
+	def.setAttack1DamageNumberofDice(1)
+	def.setAttack1DamageSidesperDie(1)
+	//
+	def.setAttack1CooldownTime(attackCooldown(lvl))
+	def.setAttack1Range(attackRange)
+	def.setScalingValue(0.8)
+	def.setGroundTexture("")

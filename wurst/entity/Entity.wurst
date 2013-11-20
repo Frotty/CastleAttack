@@ -109,6 +109,9 @@ abstract public class UnitEntity extends Entity
 		this.actor = actor
 		actor.setUserData(this castTo int).addAbility(HEIGHT_ENABLER).removeAbility(HEIGHT_ENABLER)
 		unitEntityCount++
+	
+	static function getForUnit(unit u) returns UnitEntity
+		return u.getUserData() castTo UnitEntity
 		
 	override function update()
 		updatePos()

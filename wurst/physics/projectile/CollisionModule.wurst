@@ -1,0 +1,31 @@
+package CollisionModule
+import Entity
+import TempGroups
+
+public module CollisionModule
+	// config functions
+	/** function is called when a collision is detected */
+	abstract function onCollision(UnitEntity other)
+	
+	/** radius for collision detection */
+	abstract function collisionRadius() returns real
+	
+	// functions to call by client:
+	
+	/** checks for collisions, call this in the update function */
+	function checkForCollisions(vec2 pos)
+		temp = this
+		GroupEnumUnitsInRange(ENUM_GROUP, pos.x, pos.y, collisionRadius(), enumFilter)
+	
+	// private implementation details:
+	
+	private static thistype temp
+	
+	private static constant enumFilter = Condition(function enumFilter)
+	private static function enumFilter() returns boolean
+		let entity = UnitEntity.getForUnit(GetFilterUnit())
+		if entity != null
+			temp.onCollision(entity)
+		return false
+	
+		

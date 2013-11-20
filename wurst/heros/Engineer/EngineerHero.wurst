@@ -1,0 +1,46 @@
+package EngineerHero
+import Hero
+import GameConstants
+import ObjectIds
+import UnitObjEditing
+import SpellGunTurret
+import HashMap
+
+/*
+(7:48:11 PM) Frotty: für engineer dachte ich an
+(7:48:25 PM) Frotty: son kleinen magischen geschütz turm mit dem giftturm model
+(7:48:42 PM) Frotty: der automatisch custom missile verschießt
+(7:48:51 PM) Frotty: also gerades geschoss, hittet erste einheit
+(7:49:00 PM) Frotty: das über timed life da ist
+*/
+
+
+public class EngineerHero extends Hero
+	static constant ID = OBJ_ED_PREFIX_HERO + '0eng'
+
+	construct( vec3 pos, player owner )
+		super( pos, createUnit(owner, ID, pos, angle(0)))
+
+	override function onCast(int id, vec2 tpos, unit target)
+		let lvl = GetUnitAbilityLevel(this.actor, id)
+		if id == GUN_TURRET_SPELL_ID
+			new SpellGunTurret(this, tpos, lvl)
+
+	
+
+
+init
+	addToDefendPool(EngineerHero.ID)
+
+
+	
+	
+
+
+@compiletime function generateArcherHero()
+	let def = new HeroDefinition(EngineerHero.ID, 'Ntin')
+	def.setName("Engineer Hero")
+	def.setProperNames("Engineer")
+	def.setAbilities(idInteger2IdString(GUN_TURRET_SPELL_ID))
+	def.setHeroAbilities(idInteger2IdString(GUN_TURRET_SPELL_ID))
+

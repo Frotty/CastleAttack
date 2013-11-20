@@ -61,6 +61,6 @@ class PiercingArrow extends Projectile
 	def.setOption(Option.VISIBLE, true)
 	def.setFollowThroughTime(0.4)
 	def.setDisablesOther(false)
-	for i = 0 to 3
+	for i = 1 to 4
 		def.setCastingTime(i,0)
 		

@@ -1,5 +1,6 @@
 package Test
 import ArcherHero
+import EngineerHero
 
 ArcherHero h 
 
@@ -12,5 +13,6 @@ public function startTest()
 function forced()
 	print("2duh!")
 	new ArcherHero(vec3(-6144,3584,256), Player(0))	
+	new EngineerHero(vec3(-6144,3484,256), Player(0))
 
 	

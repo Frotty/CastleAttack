@@ -8,7 +8,7 @@ import CreepNode
 import CreepSpawn
 import PreloadList
 import ArcherHero
-
+import EngineerHero
 
 vec2 startpos = vec2(-6144,3584)
 
@@ -31,6 +31,7 @@ function initGame()
 	startDebug()
 	print("|cff5A835A[Start] |r- HeroTest")
 	new ArcherHero(vec3(-5700,3000,0), Player(0))
+	new EngineerHero(vec3(-5700,3000,0), Player(0))
 	print("done")
 	
 function initPreload()

@@ -10,7 +10,7 @@ public enum HOMING
 	forced // pushed homing (warlock-like)
 	circle // Circular motion around the target with set distance
 
-public abstract class HomingProjectile extends Projectile
+public class HomingProjectile extends Projectile
 	HOMING htype = HOMING.none
 	Entity target
 	real homingSpeed = 0.
