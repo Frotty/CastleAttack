@@ -26,7 +26,9 @@ public function startNewRound()
 function startWarmup()
 	warmupRunning = true
 	warmupRectTrigger = CreateTrigger()
-	warmupRectTrigger.addAction(function enterWarmupBlock).registerRectEnterEventSource(gg_rct_warmupblock)
+	warmupRectTrigger
+		..addAction(function enterWarmupBlock)
+		..registerRectEnterEventSource(gg_rct_warmupblock)
 	print("warmup started")
 	getTimer().start(WARUMP_TIME, function finishWarmup)
 	

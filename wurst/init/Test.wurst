@@ -6,8 +6,8 @@ ArcherHero h
 
 public function startTest()
 	var t = CreateTrigger()
-	t.registerPlayerChatEvent(Player(0),"force", true)
-	.addAction(function forced)
+	t..registerPlayerChatEvent(Player(0),"force", true)
+		..addAction(function forced)
 	
 	
 function forced()

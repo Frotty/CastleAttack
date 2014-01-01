@@ -40,6 +40,7 @@ public class SpellGunTurret extends UnitEntity
 		doAfter(duration(lvl), () -> begin
 			destroy this
 		end)
+		print("HOHOHOOHOHOHO")
 	
 	function fire(unit target)	
 		new SpellGunTurretMissile(this, pos.angleTo2d(target.getPos()))
@@ -68,8 +69,8 @@ function onAttack()
 
 init 
 	CreateTrigger()
-		.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
-		.addAction(function onAttack)
+		..registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
+		..addAction(function onAttack)
 	
 	
 
@@ -77,13 +78,13 @@ init
 	// based on shadow hunter serpent wards
 	int levelCount = 4
 	let def = new ChannelSpellPreset(GUN_TURRET_SPELL_ID, levelCount)
-	def.setName("Gun Turret")
-	def.setIcon("ReplaceableTextures\\CommandButtons\\BTNElvenGuardTower.blp")
-	def.setIconNormal("ReplaceableTextures\\CommandButtons\\BTNElvenGuardTower.blp")
-	def.setTargetType(Targettype.PTARGET)
-	def.setOption(Option.VISIBLE, true)
-	def.setFollowThroughTime(0.4)
-	def.setDisablesOther(false)
+		..setName("Gun Turret")
+		..setIcon("ReplaceableTextures\\CommandButtons\\BTNElvenGuardTower.blp")
+		..setIconNormal("ReplaceableTextures\\CommandButtons\\BTNElvenGuardTower.blp")
+		..setTargetType(Targettype.PTARGET)
+		..setOption(Option.VISIBLE, true)
+		..setFollowThroughTime(0.4)
+		..setDisablesOther(false)
 	for lvl = 1 to levelCount
 		createTower(lvl)
 		def.setCastingTime(lvl,0)
@@ -92,16 +93,15 @@ init
 function createTower(int lvl)
 	// based on high elven guard tower:
 	let def = new BuildingDefinition(GUN_TURRET_TOWER_ID + lvl, 'negt')
-	def.setName("Gun Turret Level " + lvl.toString())
-	def.setHitPointsMaximumBase(100 + lvl*100)
+		..setName("Gun Turret Level " + lvl.toString())
+		..setHitPointsMaximumBase(100 + lvl*100)
 	// no projectile
 	def.setAttack1ProjectileArt("")
 	// 0 damage
-	def.setAttack1DamageBase(-1)
-	def.setAttack1DamageNumberofDice(1)
-	def.setAttack1DamageSidesperDie(1)
-	//
-	def.setAttack1CooldownTime(attackCooldown(lvl))
-	def.setAttack1Range(attackRange)
-	def.setScalingValue(0.8)
-	def.setGroundTexture("")
+	def..setAttack1DamageBase(-1)
+		..setAttack1DamageNumberofDice(1)
+		..setAttack1DamageSidesperDie(1)
+		..setAttack1CooldownTime(attackCooldown(lvl))
+		..setAttack1Range(attackRange)
+		..setScalingValue(0.8)
+		..setGroundTexture("")

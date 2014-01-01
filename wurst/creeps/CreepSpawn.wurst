@@ -29,7 +29,9 @@ public class Spawner
 	static function spawnUnits()
 		print("spawn units")
 		let data = GetExpiredTimer().getData() castTo Spawner
-		getTimer().start(0.5, function spawnFootmen).setData(data castTo int)
+		getTimer()
+			..setData(data castTo int)
+			..start(0.5, function spawnFootmen)
 		if data.spawnCount > 2
 			getTimer().start(5., function spawnCatapults)
 			data.spawnCount = 0
@@ -56,7 +58,9 @@ public class Spawner
 		
 		
 	function start()
-		spawnTimer.start(1., function Spawner.spawnUnits).setData(this castTo int)
+		spawnTimer
+			..start(1., function Spawner.spawnUnits)
+			..setData(this castTo int)
 		print("started")
 		
 	function stop()
